@@ -1,0 +1,16 @@
+
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: licensingservice
+  profiles:
+    active: default
+  cloud:
+    config:
+      uri: http://localhost:8888
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,env
