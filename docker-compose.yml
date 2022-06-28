@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  db:
+    image: "imqs/postgres:qa-10.5"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: l3@n1ng15fun
+      AUTH_POSTGRES_PASSWORD: auth
+    command: "-c listen_addresses=*"
