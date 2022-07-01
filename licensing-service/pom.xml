@@ -15,6 +15,11 @@
 	<description>licensing-service</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>2021.0.3</spring-cloud.version>
+		<start-class>com.katz.configsvr.LicensingServiceApplication</start-class>
+		<docker.image.name>katlegoh/prac-licensingservice</docker.image.name>
+		<docker.image.tag>master</docker.image.tag>
+		<project.build.encoding>UTF-8</project.build.encoding>
 	</properties>
 
 	<dependencies>
@@ -36,7 +41,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-client</artifactId>
-			<version>3.1.3</version>
 		</dependency>
 
 		<dependency>
@@ -61,6 +65,18 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>
