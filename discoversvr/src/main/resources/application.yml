@@ -1,0 +1,13 @@
+server:
+  port: 8761
+
+eureka:
+  ## When configuring a server this means we are not registering this service as a client
+  client:
+    ## Not a client but a service/server
+    register-with-eureka: false
+    ## Means we are not caching locally
+    fetch-registry: false
+  server:
+    wait-time-in-ms-when-sync-empty: 5
+
