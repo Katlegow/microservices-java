@@ -1,0 +1,10 @@
+
+##  Registers the service to the discovery service server/service
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://localhost:8761/eureka

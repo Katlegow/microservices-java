@@ -1,0 +1,12 @@
+
+spring:
+  application:
+    name: organizationservice
+  profiles:
+    active: default
+  cloud:
+    config:
+      enabled: true
+      import-check:
+        enabled: false
+      ## Tells the application that eureka server will be responsible for locating config
