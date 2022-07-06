@@ -45,4 +45,16 @@ public class LicenseController {
     public String saveLicense(License license) {
         return licenseService.saveLicense(license);
     }
+
+    @RequestMapping(
+            value = "/{licenseId}/{consumerType}",
+            method = RequestMethod.GET
+    )
+    public License getLicense(
+            @PathVariable("organizationId") String organizationId,
+            @PathVariable("licenseId") String licenseId,
+            @PathVariable("consumerType") String consumerType
+    ) {
+        return licenseService.getLicenseByIdAndOrgId(licenseId, organizationId, consumerType);
+    }
 }

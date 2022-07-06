@@ -1,10 +1,7 @@
 package com.katz.licensingservice.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "licenses")
@@ -17,8 +14,48 @@ public class License {
     private String productName;
     @Column(name = "license_type", nullable = false)
     private String licenseType;
-
+    @Column(name = "comment")
     private String comment;
+    @Transient
+    private String organizationName;
+    @Transient
+    private String contactName;
+    @Transient
+    private String organizationEmail;
+    @Transient
+    private String organizationPhone;
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
+    public String getOrganizationEmail() {
+        return organizationEmail;
+    }
+
+    public void setOrganizationEmail(String organizationEmail) {
+        this.organizationEmail = organizationEmail;
+    }
+
+    public String getOrganizationPhone() {
+        return organizationPhone;
+    }
+
+    public void setOrganizationPhone(String organizationPhone) {
+        this.organizationPhone = organizationPhone;
+    }
 
     public String getId() {
         return id;
@@ -83,4 +120,25 @@ public class License {
         this.setComment(comment);
         return this;
     }
+
+    public License withOrganizationName(String organizationName) {
+        this.setOrganizationName(organizationName);
+        return this;
+    }
+
+    public License withContactName(String contactName) {
+        this.setContactName(contactName);
+        return this;
+    }
+
+    public License withOrganizationPhone(String organizationPhone) {
+        this.setOrganizationPhone(organizationPhone);
+        return this;
+    }
+
+    public License withOrganizationEmail(String organizationEmail) {
+        this.setOrganizationEmail(organizationEmail);
+        return this;
+    }
+
 }
