@@ -2,6 +2,7 @@ package com.katz.licensingservice.services;
 
 import com.katz.licensingservice.config.Config;
 import com.katz.licensingservice.external.OrganizationDiscoveryClient;
+import com.katz.licensingservice.external.OrganizationRestTemplateClient;
 import com.katz.licensingservice.model.License;
 import com.katz.licensingservice.model.Organization;
 import com.katz.licensingservice.repository.LicenseRepository;
@@ -13,11 +14,14 @@ public class LicenseService {
     private final LicenseRepository licenseRepository;
     private final Config config;
     private final OrganizationDiscoveryClient organizationDiscoveryClient;
+    private final OrganizationRestTemplateClient organizationRestTemplateClient;
 
-    public LicenseService(LicenseRepository licenseRepository, Config config, OrganizationDiscoveryClient organizationDiscoveryClient) {
+    public LicenseService(LicenseRepository licenseRepository, Config config, OrganizationDiscoveryClient organizationDiscoveryClient,
+                          OrganizationRestTemplateClient organizationRestTemplateClient) {
         this.licenseRepository = licenseRepository;
         this.config = config;
         this.organizationDiscoveryClient = organizationDiscoveryClient;
+        this.organizationRestTemplateClient = organizationRestTemplateClient;
     }
 
     public List<License> getLicensesByOrgId(String organizationId) {
@@ -38,17 +42,18 @@ public class LicenseService {
         Organization organization = getOrganization(organizationId, consumerType);
         return license
                 .withContactName(organization.getContactName())
-                .withOrganizationEmail(organization.getOrganizationEmail())
+                .withOrganizationEmail(organization.getContactEmail())
                 .withOrganizationName(organization.getName())
-                .withOrganizationPhone(organization.getOrganizationPhone());
+                .withOrganizationPhone(organization.getContactPhone());
     }
 
     private Organization getOrganization(String organizationId, String consumerType) {
         switch (consumerType) {
             case "DiscoveryClient":
                 return organizationDiscoveryClient.getOrganization(organizationId);
-            case "Feign":
-            case "Other":
+            case "RestTemplateClient":
+                return organizationRestTemplateClient.getOrganizationById(organizationId);
+            case "FeignClient":
             default:
                 return null;
         }

@@ -3,8 +3,8 @@ package com.katz.licensingservice.model;
 public class Organization {
     private String name;
     private String contactName;
-    private String organizationEmail;
-    private String organizationPhone;
+    private String contactEmail;
+    private String contactPhone;
 
     public String getName() {
         return name;
@@ -22,19 +22,19 @@ public class Organization {
         this.contactName = contactName;
     }
 
-    public String getOrganizationEmail() {
-        return organizationEmail;
+    public String getContactEmail() {
+        return contactEmail;
     }
 
-    public void setOrganizationEmail(String organizationEmail) {
-        this.organizationEmail = organizationEmail;
+    public void setContactEmail(String organizationEmail) {
+        this.contactEmail = organizationEmail;
     }
 
-    public String getOrganizationPhone() {
-        return organizationPhone;
+    public String getContactPhone() {
+        return contactPhone;
     }
 
-    public void setOrganizationPhone(String organizationPhone) {
-        this.organizationPhone = organizationPhone;
+    public void setContactPhone(String organizationPhone) {
+        this.contactPhone = organizationPhone;
     }
 }

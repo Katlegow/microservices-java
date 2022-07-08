@@ -10,3 +10,5 @@ spring:
   sql:
     init:
       mode: always
+  main:
+    allow-circular-references: true
