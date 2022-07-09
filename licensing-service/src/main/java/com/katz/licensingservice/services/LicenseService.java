@@ -2,6 +2,7 @@ package com.katz.licensingservice.services;
 
 import com.katz.licensingservice.config.Config;
 import com.katz.licensingservice.external.OrganizationDiscoveryClient;
+import com.katz.licensingservice.external.OrganizationFeignClient;
 import com.katz.licensingservice.external.OrganizationRestTemplateClient;
 import com.katz.licensingservice.model.License;
 import com.katz.licensingservice.model.Organization;
@@ -15,13 +16,15 @@ public class LicenseService {
     private final Config config;
     private final OrganizationDiscoveryClient organizationDiscoveryClient;
     private final OrganizationRestTemplateClient organizationRestTemplateClient;
+    private final OrganizationFeignClient organizationFeignClient;
 
     public LicenseService(LicenseRepository licenseRepository, Config config, OrganizationDiscoveryClient organizationDiscoveryClient,
-                          OrganizationRestTemplateClient organizationRestTemplateClient) {
+                          OrganizationRestTemplateClient organizationRestTemplateClient, OrganizationFeignClient organizationFeignClient) {
         this.licenseRepository = licenseRepository;
         this.config = config;
         this.organizationDiscoveryClient = organizationDiscoveryClient;
         this.organizationRestTemplateClient = organizationRestTemplateClient;
+        this.organizationFeignClient = organizationFeignClient;
     }
 
     public List<License> getLicensesByOrgId(String organizationId) {
@@ -54,6 +57,7 @@ public class LicenseService {
             case "RestTemplateClient":
                 return organizationRestTemplateClient.getOrganizationById(organizationId);
             case "FeignClient":
+                return organizationFeignClient.getOrgById(organizationId);
             default:
                 return null;
         }

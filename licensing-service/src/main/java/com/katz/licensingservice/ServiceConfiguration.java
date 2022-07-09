@@ -2,6 +2,7 @@ package com.katz.licensingservice;
 
 import com.katz.licensingservice.config.Config;
 import com.katz.licensingservice.external.OrganizationDiscoveryClient;
+import com.katz.licensingservice.external.OrganizationFeignClient;
 import com.katz.licensingservice.external.OrganizationRestTemplateClient;
 import com.katz.licensingservice.repository.LicenseRepository;
 import com.katz.licensingservice.services.LicenseService;
@@ -18,19 +19,22 @@ public class ServiceConfiguration {
     private final Config config;
     private final OrganizationDiscoveryClient organizationDiscoveryClient;
     private final OrganizationRestTemplateClient organizationRestTemplateClient;
+    private final OrganizationFeignClient organizationFeignClient;
 
     @Autowired
     public ServiceConfiguration(LicenseRepository licenseRepository, Config config, OrganizationDiscoveryClient organizationDiscoveryClient,
-                                OrganizationRestTemplateClient organizationRestTemplateClient) {
+                                OrganizationRestTemplateClient organizationRestTemplateClient, OrganizationFeignClient organizationFeignClient) {
         this.licenseRepository = licenseRepository;
         this.config = config;
         this.organizationDiscoveryClient = organizationDiscoveryClient;
         this.organizationRestTemplateClient = organizationRestTemplateClient;
+        this.organizationFeignClient = organizationFeignClient;
     }
 
     @Bean
     public LicenseService getLicenseService() {
-        return new LicenseService(licenseRepository, config, organizationDiscoveryClient, organizationRestTemplateClient);
+        return new LicenseService(licenseRepository, config, organizationDiscoveryClient, organizationRestTemplateClient,
+                organizationFeignClient);
     }
 
 
