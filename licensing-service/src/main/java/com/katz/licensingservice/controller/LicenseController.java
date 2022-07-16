@@ -2,6 +2,9 @@ package com.katz.licensingservice.controller;
 
 import com.katz.licensingservice.model.License;
 import com.katz.licensingservice.services.LicenseService;
+import com.katz.licensingservice.utils.UserContextHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +18,7 @@ import java.util.List;
 public class LicenseController {
 
     private final LicenseService licenseService;
+    private static final Logger log = LoggerFactory.getLogger(LicenseController.class);
 
     @Autowired
     public LicenseController(LicenseService licenseService) {
@@ -36,6 +40,12 @@ public class LicenseController {
             method = RequestMethod.GET
     )
     public List<License> getLicensesByOrgId(@PathVariable("organizationId") String organizationId) {
+
+        log.info(
+                "User Correlation Id: {}",
+                UserContextHolder.get().getCorrelationId()
+        );
+
         return licenseService.getLicensesByOrgId(organizationId);
     }
 

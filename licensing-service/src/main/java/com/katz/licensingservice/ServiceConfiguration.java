@@ -4,6 +4,7 @@ import com.katz.licensingservice.config.Config;
 import com.katz.licensingservice.external.OrganizationDiscoveryClient;
 import com.katz.licensingservice.external.OrganizationFeignClient;
 import com.katz.licensingservice.external.OrganizationRestTemplateClient;
+import com.katz.licensingservice.interceptors.UserContextFilter;
 import com.katz.licensingservice.repository.LicenseRepository;
 import com.katz.licensingservice.services.LicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.Filter;
 
 @Configuration
 public class ServiceConfiguration {
@@ -42,6 +45,11 @@ public class ServiceConfiguration {
     @Bean
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public Filter getUserContextFilter() {
+        return new UserContextFilter();
     }
 
 }
