@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: routerservice
+
+# Register the service with Eureka Server/Service
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 5555
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#
+## Disable Hystrix timeout globally (for all services)
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        timeout:
+#          enabled: false
+#
+##To disable timeout foror particular service,
+#hystrix.command.<serviceName>.execution.timeout.enabled: false
+#
+## Increase the Hystrix timeout to 60s (globally)
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+#
+## Increase the Hystrix timeout to 60s (per service)
+#hystrix.command.<serviceName>.execution.isolation.thread.timeoutInMilliseconds: 60000
+
+
+
+zuul.host.connect-timeout-millis: 10000
+
+zuul.host.socket-timeout-millis: 1000000
