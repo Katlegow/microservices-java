@@ -4,6 +4,7 @@ import com.katz.licensingservice.config.Config;
 import com.katz.licensingservice.external.OrganizationDiscoveryClient;
 import com.katz.licensingservice.external.OrganizationFeignClient;
 import com.katz.licensingservice.external.OrganizationRestTemplateClient;
+import com.katz.licensingservice.interceptors.RestTemplateRequestInterceptor;
 import com.katz.licensingservice.repository.LicenseRepository;
 import com.katz.licensingservice.services.LicenseService;
 import com.katz.licensingservice.utils.UserContextPropagator;
@@ -22,9 +23,12 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 @SuppressWarnings("rawtypes")
@@ -59,7 +63,18 @@ public class ServiceConfiguration {
     @LoadBalanced
     @Bean
     public RestTemplate getRestTemplate() {
-        return new RestTemplate();
+        RestTemplate template = new RestTemplate();
+
+        List<ClientHttpRequestInterceptor> interceptors = template.getInterceptors();
+
+        if (interceptors == null) {
+            template.setInterceptors(Collections.singletonList(new RestTemplateRequestInterceptor()));
+        } else {
+            interceptors.add( new RestTemplateRequestInterceptor());
+            template.setInterceptors(interceptors);
+        }
+
+        return template;
     }
 
     @Bean
