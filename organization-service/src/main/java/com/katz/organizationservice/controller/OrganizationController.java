@@ -6,10 +6,9 @@ import com.katz.organizationservice.utils.UserContextHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @RequestMapping("v1/organizations")
 @RestController
@@ -35,9 +34,10 @@ public class OrganizationController {
     }
 
     @RequestMapping(
-            method = RequestMethod.POST
+            method = RequestMethod.POST,
+            consumes = APPLICATION_JSON
     )
-    public Organization add(Organization organization) {
+    public Organization add(@RequestBody Organization organization) {
         return organizationService.addOrUpdateOrganization(organization);
     }
 

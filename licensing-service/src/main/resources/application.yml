@@ -17,3 +17,16 @@ management:
 
 server:
   port: 8081
+
+spring:
+  cloud:
+    stream:
+      bindings:
+        organizationChangeEventHandler-in-0:
+          destination: orgChangeTopic
+          content-type: application/json
+          group: licensingGroup
+      kafka:
+        binder:
+          zkNodes: localhost:2181
+          brokers: localhost:9092
