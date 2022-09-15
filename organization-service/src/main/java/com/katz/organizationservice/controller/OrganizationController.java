@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.MEDIA_TYPE_WILDCARD;
 
 @RequestMapping("v1/organizations")
 @RestController
@@ -46,5 +47,13 @@ public class OrganizationController {
     )
     public Organization update(Organization organization) {
         return organizationService.addOrUpdateOrganization(organization);
+    }
+
+    @RequestMapping(
+            value = "/{organizationId}",
+            method = RequestMethod.DELETE
+    )
+    public void delete(@PathVariable("organizationId") String organizationId) {
+        organizationService.deleteOrganization(organizationId);
     }
 }

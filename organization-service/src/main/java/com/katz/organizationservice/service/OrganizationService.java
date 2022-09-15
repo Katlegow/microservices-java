@@ -20,7 +20,7 @@ public class OrganizationService {
     }
 
     public Organization findByOrgId(String organizationId) {
-        return repository.findById(organizationId).get();
+        return repository.findById(organizationId).orElseGet(Organization::new) ;
     }
 
     public Organization addOrUpdateOrganization(Organization organization) {
@@ -38,6 +38,14 @@ public class OrganizationService {
         );
 
         return org;
+    }
+
+    public void deleteOrganization(String organizationId) {
+        repository.deleteById(organizationId);
+        bridge.send(
+                "bridgeOrganizationChangeEvent-out-0",
+                organizationChangeEvent(String.valueOf(Event.DELETE), organizationId)
+        );
     }
 
     private OrganisationEventEmitter organizationChangeEvent(String action, String orgId) {
