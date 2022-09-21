@@ -41,3 +41,9 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim
+    container_name: zipkin
+    ports:
+      - 9411:9411

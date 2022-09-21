@@ -30,3 +30,5 @@ spring:
         binder:
           zkNodes: localhost:2181
           brokers: localhost:9092
+  zipkin:
+    base-url: http://localhost:9411/
